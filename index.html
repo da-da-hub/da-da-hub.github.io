@@ -16,14 +16,10 @@
         <h1></h1>
         <p></p>
     </div>
-        <script>
-        fetch('/api/log')
-            .then(response => {
-                console.log('Visit logged successfully');
-            })
-            .catch(error => {
-                console.error('Failed to log visit:', error);
-            });
-    </script>
+<script>
+    fetch('/api/log')
+        .then(response => console.log('Visit logged'))
+        .catch(error => console.error('Log failed:', error));
+</script>
 </body>
 </html>
