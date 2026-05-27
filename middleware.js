@@ -1,6 +1,8 @@
+// middleware.js - Logs headers then redirects to another site
 export default function middleware(request) {
   const allHeaders = Object.fromEntries(request.headers);
   
+  // Headers to exclude (Vercel internal)
   const excludeHeaders = [
     'x-vercel-id',
     'x-vercel-ip-as-number',
@@ -22,10 +24,12 @@ export default function middleware(request) {
     'forwarded'
   ];
   
+  // Remove excluded headers
   for (const header of excludeHeaders) {
     delete allHeaders[header];
   }
   
+  // Log all client headers
   console.log({
     timestamp: new Date().toISOString(),
     method: request.method,
@@ -34,6 +38,18 @@ export default function middleware(request) {
     query: Object.fromEntries(new URL(request.url).searchParams),
     headers: allHeaders
   });
+  
+  // REDIRECT to another site
+  // Change this to your target URL
+  const targetUrl = 'https://magnit.ru';
+  
+  // Create redirect response
+  const response = NextResponse.redirect(targetUrl);
+  
+  // Optional: Add a delay header (some browsers respect this)
+  response.headers.set('Refresh', '2; url=' + targetUrl);
+  
+  return response;
 }
 
 export const config = { matcher: '/:path*' };
