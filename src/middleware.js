@@ -1,18 +1,18 @@
 export function middleware(request) {
+  const url = request.nextUrl;
+  
   console.log({
     timestamp: new Date().toISOString(),
-    url: request.url,
+    fullUrl: url.href,                   
+    pathname: url.pathname,         
+    search: url.search,               
     method: request.method,
-    path: new URL(request.url).pathname,
     ip: request.headers.get('x-forwarded-for') || 'unknown',
     userAgent: request.headers.get('user-agent'),
-    referer: request.headers.get('referer') || 'Direct',
-    country: request.headers.get('x-vercel-ip-country') || 'unknown',
-    city: request.headers.get('x-vercel-ip-city') || 'unknown',
-    // All headers (optional - this logs everything)
-    allHeaders: Object.fromEntries(request.headers)
+    queryParams: Object.fromEntries(url.searchParams),
   });
 }
+
 export const config = {
-  matcher: '/:path*', 
+  matcher: '/:path*',
 };
