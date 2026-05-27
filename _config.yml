@@ -4,6 +4,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-remote-theme
 
 title: [Your Site Title]
 description: [A short description of your site]
