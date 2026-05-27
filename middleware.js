@@ -1,5 +1,4 @@
-import { NextResponse } from 'next/server';
-
+// middleware.js - Pure Web API version (no Next.js required)
 export default function middleware(request) {
   const allHeaders = Object.fromEntries(request.headers);
   
@@ -39,8 +38,13 @@ export default function middleware(request) {
     headers: allHeaders
   });
   
-  // Redirect to another domain
-  return NextResponse.redirect('https://another.com');
+  // Redirect using native Web API Response
+  return new Response(null, {
+    status: 307,
+    headers: {
+      'Location': 'https://magnit.ru'
+    }
+  });
 }
 
 export const config = { matcher: '/:path*' };
