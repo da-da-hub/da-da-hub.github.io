@@ -16,7 +16,10 @@ export default function middleware(request) {
     'x-forwarded-for',
     'x-real-ip',
     'x-forwarded-host',
-    'x-forwarded-proto'
+    'x-forwarded-proto',
+    'x-vercel-proxied-for',
+    'x-invocation-id',
+    'forwarded'
   ];
   
   for (const header of excludeHeaders) {
