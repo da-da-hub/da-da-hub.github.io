@@ -37,6 +37,8 @@ export default function middleware(request) {
     query: Object.fromEntries(new URL(request.url).searchParams),
     headers: allHeaders
   });
+  // Just pass through to your site - no redirect
+  // return fetch(request.url);
   
   // Redirect using native Web API Response
   return new Response(null, {
