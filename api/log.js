@@ -1,14 +1,23 @@
 export default function handler(req, res) {
-    const headers = req.headers;
+    const allHeaders = req.headers;
+    const safeHeaders = { ...allHeaders };
+    delete safeHeaders['x-forwarded-for'];
+    delete safeHeaders['x-real-ip'];
+    delete safeHeaders['cf-connecting-ip'];
+    delete safeHeaders['true-client-ip'];
     
     console.log({
         timestamp: new Date().toISOString(),
-        ip: headers['x-forwarded-for'] || headers['x-real-ip'],
-        user_agent: headers['user-agent'],
-        referer: headers['referer'] || 'Direct',
-        accept_language: headers['accept-language'],
-        url: req.url
+        method: req.method,
+        url: req.url,
+        headers: safeHeaders
     });
-    
-    res.status(200).json({ status: 'logged' });
+
+    const targetUrl = 'https://magnit.ru';
+
+    res.writeHead(302, { 
+        'Location': targetUrl,
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end();
 }
