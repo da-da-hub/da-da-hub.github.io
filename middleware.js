@@ -41,12 +41,12 @@ export default function middleware(request) {
   // return fetch(request.url);
   
   // Redirect using native Web API Response
-  return new Response(null, {
-    status: 307,
-    headers: {
-      'Location': 'https://magnit.ru'
-    }
-  });
-}
+//   return new Response(null, {
+//     status: 307,
+//     headers: {
+//       'Location': 'https://magnit.ru'
+//     }
+//   });
+// }
 
 export const config = { matcher: '/:path*' };
