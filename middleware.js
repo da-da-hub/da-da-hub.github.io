@@ -47,6 +47,5 @@ export default function middleware(request) {
 //       'Location': 'https://magnit.ru'
 //     }
 //   });
-// }
-
-export const config = { matcher: '/:path*' };
+}
+// export const config = { matcher: '/:path*' };
