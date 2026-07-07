@@ -38,7 +38,7 @@ export default function middleware(request) {
     headers: allHeaders
   });
   // Just pass through to your site - no redirect
-  // return fetch(request.url);
+  return fetch(request.url);
   
   // Redirect using native Web API Response
 //   return new Response(null, {
