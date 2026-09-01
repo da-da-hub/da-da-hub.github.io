@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SSRF Test Suite</title>
+    <!-- OpenGraph для альтернативного пути -->
+    <meta property="og:image" content="http://169.254.169.254/latest/meta-data/">
+    <meta property="og:image" content="file:///etc/hostname">
+    
+    <!-- Дополнительные мета-теги для проверки -->
+    <meta name="twitter:image" content="http://127.0.0.1:8080/admin">
+    <meta name="thumbnail" content="http://[::1]:8080">
+</head>
+<body>
+    <!-- Основной блок с изображениями -->
+    <div class="product-gallery-top">
+        <!-- Разные протоколы -->
+        <div class="swiper-slide"><img src="http://169.254.169.254/latest/meta-data/" alt="AWS"></div>
+        <div class="swiper-slide"><img src="http://169.254.169.254/latest/user-data/" alt="AWS user-data"></div>
+        <div class="swiper-slide"><img src="http://127.0.0.1:8080/actuator/env" alt="actuator"></div>
+        <div class="swiper-slide"><img src="http://localhost:6379/INFO" alt="redis"></div>
+        <div class="swiper-slide"><img src="http://[::1]:8080/" alt="IPv6"></div>
+        
+        <!-- Обход экранирования -->
+        <div class="swiper-slide"><img src="http://169.254.169.254%40attacker.com/" alt="username obfuscation"></div>
+        <div class="swiper-slide"><img src="http://169.254.254.254/" alt="alternative AWS"></div>
+        <div class="swiper-slide"><img src="http://10.0.0.1/" alt="internal"></div>
+        <div class="swiper-slide"><img src="http://172.16.0.1/" alt="internal"></div>
+        <div class="swiper-slide"><img src="http://192.168.0.1/" alt="internal"></div>
+        
+        <!-- file:// протокол -->
+        <div class="swiper-slide"><img src="file:///etc/passwd" alt="passwd"></div>
+        <div class="swiper-slide"><img src="file:///proc/self/environ" alt="environ"></div>
+        <div class="swiper-slide"><img src="file:///app/application.properties" alt="config"></div>
+        
+        <!-- DNS Rebinding -->
+        <div class="swiper-slide"><img src="http://ssrf.attacker.com/" alt="dns rebinding"></div>
+        
+        <!-- URL-кодирование -->
+        <div class="swiper-slide"><img src="http://%31%36%39%2e%32%35%34%2e%31%36%39%2e%32%35%34/" alt="encoded IP"></div>
+        <div class="swiper-slide"><img src="http://0xA9FEA9FE/" alt="hex IP"></div>
+    </div>
+
+    <!-- Контент для парсинга -->
+    <span class="rs-price-new">16 900</span>
+    <span class="rs-product-barcode">SSRF001</span>
+    
+    <!-- Дополнительный контент для проверки -->
+    <div class="product-variant-second">
+        <p>Описание: тестовое описание для проверки парсинга</p>
+    </div>
+    
+    <!-- Тег style для проверки парсинга CSS -->
+    <style>
+        .background-image {
+            background-image: url('http://169.254.169.254/latest/meta-data/');
+        }
+        .background-image2 {
+            background-image: url('file:///etc/passwd');
+        }
+    </style>
+</body>
+</html>
